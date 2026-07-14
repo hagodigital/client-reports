@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Encrypted Report</title>
+<style>
+  body { font-family: system-ui, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #0f1115; color: #e8e8e8; }
+  .gate { text-align: center; }
+  input { padding: 0.5rem; font-size: 1rem; border-radius: 4px; border: 1px solid #444; background: #1c1f26; color: #fff; }
+  button { padding: 0.5rem 1rem; margin-left: 0.5rem; border-radius: 4px; border: none; background: #4f7cff; color: #fff; cursor: pointer; }
+  #error { color: #ff6b6b; margin-top: 0.5rem; min-height: 1.2em; }
+</style>
+</head>
+<body>
+<div class="gate">
+  <p>This report is password protected.</p>
+  <input type="password" id="pw" placeholder="Enter password">
+  <button id="submit">View report</button>
+  <div id="error"></div>
+</div>
+<script>
+const CIPHERTEXT_B64 = "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";
+const SALT_B64 = "oKPp/IrxX/68RI0f0BEs8w==";
+const IV_B64 = "bbQhaO/HHHjjjuAqZSj/yA==";
+const ITERATIONS = 100000;
+
+function b64ToBytes(b64) {
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes;
+}
+
+async function decrypt(password) {
+  const salt = b64ToBytes(SALT_B64);
+  const iv = b64ToBytes(IV_B64);
+  const ciphertext = b64ToBytes(CIPHERTEXT_B64);
+
+  const enc = new TextEncoder();
+  const baseKey = await crypto.subtle.importKey(
+    "raw", enc.encode(password), { name: "PBKDF2" }, false, ["deriveKey"]
+  );
+  const key = await crypto.subtle.deriveKey(
+    { name: "PBKDF2", salt: salt, iterations: ITERATIONS, hash: "SHA-256" },
+    baseKey,
+    { name: "AES-CBC", length: 256 },
+    false,
+    ["decrypt"]
+  );
+  const plainBuf = await crypto.subtle.decrypt({ name: "AES-CBC", iv: iv }, key, ciphertext);
+  return new TextDecoder().decode(plainBuf);
+}
+
+document.getElementById("submit").addEventListener("click", async () => {
+  const pw = document.getElementById("pw").value;
+  const errorEl = document.getElementById("error");
+  errorEl.textContent = "";
+  try {
+    const html = await decrypt(pw);
+    document.open();
+    document.write(html);
+    document.close();
+  } catch (e) {
+    errorEl.textContent = "Incorrect password.";
+  }
+});
+</script>
+</body>
+</html>
