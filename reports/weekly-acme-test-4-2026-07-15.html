@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Encrypted Report</title>
+<style>
+  body { font-family: system-ui, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #0f1115; color: #e8e8e8; }
+  .gate { text-align: center; }
+  input { padding: 0.5rem; font-size: 1rem; border-radius: 4px; border: 1px solid #444; background: #1c1f26; color: #fff; }
+  button { padding: 0.5rem 1rem; margin-left: 0.5rem; border-radius: 4px; border: none; background: #4f7cff; color: #fff; cursor: pointer; }
+  #error { color: #ff6b6b; margin-top: 0.5rem; min-height: 1.2em; }
+</style>
+</head>
+<body>
+<div class="gate">
+  <p>This report is password protected.</p>
+  <input type="password" id="pw" placeholder="Enter password">
+  <button id="submit">View report</button>
+  <div id="error"></div>
+</div>
+<script>
+const CIPHERTEXT_B64 = "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";
+const SALT_B64 = "XAr5INqz2jGVvVVX/YkLew==";
+const IV_B64 = "DqXFvarZmjwWwlB2SywxkQ==";
+const ITERATIONS = 100000;
+
+function b64ToBytes(b64) {
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes;
+}
+
+async function decrypt(password) {
+  const salt = b64ToBytes(SALT_B64);
+  const iv = b64ToBytes(IV_B64);
+  const ciphertext = b64ToBytes(CIPHERTEXT_B64);
+
+  const enc = new TextEncoder();
+  const baseKey = await crypto.subtle.importKey(
+    "raw", enc.encode(password), { name: "PBKDF2" }, false, ["deriveKey"]
+  );
+  const key = await crypto.subtle.deriveKey(
+    { name: "PBKDF2", salt: salt, iterations: ITERATIONS, hash: "SHA-256" },
+    baseKey,
+    { name: "AES-CBC", length: 256 },
+    false,
+    ["decrypt"]
+  );
+  const plainBuf = await crypto.subtle.decrypt({ name: "AES-CBC", iv: iv }, key, ciphertext);
+  return new TextDecoder().decode(plainBuf);
+}
+
+document.getElementById("submit").addEventListener("click", async () => {
+  const pw = document.getElementById("pw").value;
+  const errorEl = document.getElementById("error");
+  errorEl.textContent = "";
+  try {
+    const html = await decrypt(pw);
+    document.open();
+    document.write(html);
+    document.close();
+  } catch (e) {
+    errorEl.textContent = "Incorrect password.";
+  }
+});
+</script>
+</body>
+</html>
